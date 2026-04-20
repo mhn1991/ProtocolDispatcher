@@ -6,8 +6,8 @@ FIX is intentionally postponed until after HTTP and WebSocket are understood and
 
 Recommended order:
 
-1. dispatch framework
-2. HTTP
+1. HTTP
+2. decide whether the dispatch layer is useful
 3. WebSocket
 4. FIX
 
@@ -32,7 +32,7 @@ That makes it a much riskier first protocol than HTTP or WebSocket.
 
 ## Planned FIX Subsystem Shape
 
-When FIX is added, it should be treated as its own deeper subsystem behind the common dispatch platform.
+When FIX is added, it should be treated as its own deeper subsystem behind either the common dispatch platform or a direct client API, depending on what proves cleaner after HTTP and WebSocket.
 
 Likely components:
 
@@ -41,12 +41,12 @@ Likely components:
 - `FixSessionManager`
 - `FixParser`
 - `FixSerializer`
-- `FixHandler`
+- `FixClient`
 - `FixStore`
 - `FixValidator`
 
 ## Architectural Rule
 
-FIX should plug into the top-level routing layer, but its internal session model should stay isolated from HTTP and WebSocket implementation details.
+FIX should plug into the top-level routing layer only if that layer still adds real value. Its internal session model should stay isolated from HTTP and WebSocket implementation details.
 
 That prevents the dispatcher from becoming FIX-aware too early.

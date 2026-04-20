@@ -1,10 +1,8 @@
-# WebSocket Design
+# WebSocket Client Design
 
-## Beast Support
+## Why It Comes Later
 
-Boost.Beast supports WebSocket and is appropriate for this project.
-
-That makes it a good fit after HTTP because it keeps the same general library family while introducing a more stateful communication model.
+WebSocket should come after the raw-socket HTTP client path is working, because the opening handshake is HTTP-shaped and the session is more stateful than plain REST calls.
 
 ## Key Difference From HTTP
 
@@ -18,29 +16,23 @@ Because of that, WebSocket should not be modeled as just another HTTP payload sh
 
 Recommended components:
 
-- `WebSocketUpgradeHandler`
+- `WebSocketHandshake`
 - `WebSocketSession`
-- `WebSocketMessageDispatcher`
-- `WebSocketValidator`
-
-In the current file tree, the equivalent planned components are represented by:
-
-- `WebSocketHandler`
-- `WebSocketSession`
+- `WebSocketClient`
 - `WebSocketValidator`
 
 The important point is responsibility separation, not the exact name.
 
 ## Responsibilities
 
-### Upgrade Handling
+### Handshake Handling
 
-The system must handle the HTTP Upgrade boundary explicitly.
+The client must handle the HTTP Upgrade boundary explicitly.
 
-The upgrade path is responsible for:
+The handshake path is responsible for:
 
-- recognizing an upgrade request
-- performing the WebSocket handshake
+- building the upgrade request
+- validating the upgrade response
 - creating the session object
 
 ### Session
@@ -55,15 +47,15 @@ Session concerns include:
 - close behavior
 - ping/pong or heartbeat concerns
 
-### Message Dispatch
+### Client Flow
 
-Once a session is established, individual messages can be routed or interpreted according to application rules.
+Once a session is established, individual messages can be sent, received, and interpreted according to application rules.
 
-This is separate from the core protocol dispatcher that routes by top-level protocol.
+This remains separate from the optional core dispatch layer that routes by top-level protocol.
 
 ## Boundary Rule
 
-Do not collapse HTTP and WebSocket into one handler just because the handshake starts with HTTP.
+Do not collapse HTTP and WebSocket into one component just because the handshake starts with HTTP.
 
 Use HTTP for:
 
@@ -72,7 +64,7 @@ Use HTTP for:
 Use WebSocket for:
 
 - long-lived session management
-- message flow after upgrade
+- message flow after the handshake succeeds
 
 ## Why WebSocket Comes Before FIX
 

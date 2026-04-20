@@ -11,17 +11,20 @@ add_library(ProtocolDispatcher STATIC
     src/core/HandlerRegistry.cpp
     src/common/Config.cpp
     src/common/Error.cpp
+    src/net/Resolver.cpp
+    src/net/Socket.cpp
+    src/net/TcpClient.cpp
+    src/protocols/http/HttpClient.cpp
     src/protocols/http/HttpHandler.cpp
+    src/protocols/http/HttpParser.cpp
+    src/protocols/http/HttpSerializer.cpp
     src/protocols/http/HttpValidator.cpp
     src/protocols/websocket/WebSocketHandler.cpp
     src/protocols/websocket/WebSocketSession.cpp
     src/protocols/websocket/WebSocketValidator.cpp
-    src/transport/BeastHttpAdapter.cpp
-    src/transport/BeastWebSocketAdapter.cpp
 )
 
 target_include_directories(ProtocolDispatcher
     PUBLIC
         include
 )
-
