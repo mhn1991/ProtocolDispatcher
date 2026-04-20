@@ -2,6 +2,9 @@
 
 namespace ProtocolDispatcher::protocols::http {
 
-class HttpHandler {};
+class HttpHandler {
+public:
+    virtual ~HttpHandler() = default;
+};
 
 }  // namespace ProtocolDispatcher::protocols::http
