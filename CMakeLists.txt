@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+include(CTest)
+
 add_library(ProtocolDispatcher STATIC
     src/core/Dispatcher.cpp
     src/core/HandlerRegistry.cpp
@@ -28,3 +30,14 @@ target_include_directories(ProtocolDispatcher
     PUBLIC
         include
 )
+
+if(BUILD_TESTING)
+    include(FetchContent)
+
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    )
+
+    FetchContent_MakeAvailable(googletest)
+endif()
