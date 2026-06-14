@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -47,7 +48,7 @@ inline std::string_view to_string(HttpMethod method) {
         return "DELETE";
     }
 
-    return "GET";
+    throw std::invalid_argument("Unknown HTTP method");
 }
 
 }  // namespace ProtocolDispatcher::protocols::http
