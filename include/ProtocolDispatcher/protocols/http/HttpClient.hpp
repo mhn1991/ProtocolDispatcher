@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ProtocolDispatcher/protocols/http/HttpRequest.hpp"
-#include "ProtocolDispatcher/protocols/http/HttpResponse.hpp"
+#include "/home/mhn70/Projects/ProtocolDispatcher/include/ProtocolDispatcher/protocols/http/HttpRequest.hpp"
+#include "/home/mhn70/Projects/ProtocolDispatcher/include/ProtocolDispatcher/protocols/http/HttpResponse.hpp"
 
 namespace ProtocolDispatcher::protocols::http {
 
